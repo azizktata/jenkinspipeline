@@ -1,6 +1,18 @@
 pipeline {
     agent any
     stages {
+        stage('Checkout') {
+           steps {
+                checkout scm
+           }
+        }
+        stage('Build Spring') {
+            steps {
+             script{
+                sh 'mvn clean package'
+             }
+            }
+        }
         stage('Build docker image') {
             steps {
              script{
