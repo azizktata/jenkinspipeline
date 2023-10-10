@@ -1,6 +1,10 @@
 pipeline {
     agent any
+     tools {
+          maven 'maven'
+     }
     stages {
+
         stage('Checkout') {
            steps {
                 checkout scm
@@ -8,10 +12,8 @@ pipeline {
         }
         stage('Build Spring') {
             steps {
-             git url: 'https://github.com/cyrille-leclerc/multi-module-maven-project'
-                     withMaven {
-                       sh "mvn clean verify"
-                     }
+                sh "mvn clean install"
+
             }
         }
         stage('Build docker image') {
