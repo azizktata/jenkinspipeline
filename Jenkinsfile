@@ -12,14 +12,16 @@ pipeline {
         }
         stage('Build Spring') {
             steps {
+             script{
                 sh "mvn clean install"
+             }
 
             }
         }
         stage('Build docker image') {
             steps {
              script{
-                sh 'docker build -t back-spring .'
+                sh "docker build -t back-spring ."
              }
             }
         }
