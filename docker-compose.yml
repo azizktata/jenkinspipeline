@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  back:
+    image: back-spring
+    ports:
+      - 8081:8081
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysqldb:3306/Fulldb?createDatabaseIfNotExist=true
+    depends_on:
+      - mysqldb
+    networks:
+      - front-tier
+      - back-tier
+
+  mysqldb:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=system
+    volumes:
+      - mysql:/var/lib/mysql
+      - mysql_config:/etc/mysql
+    networks:
+      - back-tier
+
+  front:
+    image: front-spring
+    ports:
+      - 3000:3000
+    networks:
+      - front-tier
+      - back-tier
+
+volumes:
+  mysql:
+  mysql_config:
+
+networks:
+  front-tier:
+  back-tier:

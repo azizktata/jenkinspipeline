@@ -19,15 +19,21 @@ pipeline {
         stage('Build docker image') {
             steps {
              script{
-                sh 'docker build -t firstpipespring .'
+                sh 'docker build -t back-spring .'
              }
             }
         }
         stage('Run Docker Container') {
             steps {
                 script {
-                    sh 'docker run -d -p 8084:8084 firstpipespring'
+                    sh 'docker compose up -d'
                 }
+            }
+        }
+        post {
+            always {
+                // Cleanup or post-build actions
+                deleteDir() // This will delete the workspace directory
             }
         }
     }
