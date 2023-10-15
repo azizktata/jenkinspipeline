@@ -11,24 +11,17 @@ pipeline {
            }
         }
 
-        stage('Build Spring') {
+        stage ("Generate backend image") {
             steps {
-             script{
-                sh "mvn clean install"
-             }
-
-            }
-        }
-        stage('Build docker image') {
-            steps {
-             script{
-                sh "docker build -t back-spring ."
-             }
+                 dir("full-stack"){
+                    sh "mvn clean install"
+                    sh "docker build -t back-spring ."
+                }
             }
         }
         stage('Run Docker Container') {
             steps {
-                script {
+                dir("full-stack") {
                     sh 'docker compose up -d'
                 }
             }
