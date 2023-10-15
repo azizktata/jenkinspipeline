@@ -10,13 +10,7 @@ pipeline {
                 checkout scm
            }
         }
-        stage('Start MySQL Service') {
-                    steps {
-                        script {
-                            sh 'docker compose up -d mysqldb'
-                        }
-                    }
-                }
+
         stage('Build Spring') {
             steps {
              script{
