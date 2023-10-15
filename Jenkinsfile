@@ -13,7 +13,7 @@ pipeline {
 
         stage ("Generate backend image") {
             steps {
-                 dir("jenkinspipeline"){
+                 script{
                     sh "mvn clean install"
                     sh "docker build -t back-spring ."
                 }
@@ -21,7 +21,7 @@ pipeline {
         }
         stage('Run Docker Container') {
             steps {
-                dir("jenkinspipeline") {
+                script {
                     sh 'docker compose up -d'
                 }
             }
