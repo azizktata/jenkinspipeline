@@ -32,11 +32,12 @@ pipeline {
                 }
             }
         }
-        post {
-            always {
-                // Cleanup or post-build actions
-                deleteDir() // This will delete the workspace directory
-            }
+
+    }
+    post {
+        always {
+                    // Cleanup or post-build actions
+            deleteDir() // This will delete the workspace directory
         }
     }
 }
