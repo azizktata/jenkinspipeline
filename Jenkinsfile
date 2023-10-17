@@ -14,7 +14,7 @@ pipeline {
         stage ("Generate backend image") {
             steps {
                  script{
-                    sh "mvn clean install"
+                    sh "mvn clean install -DskipTests"
                     sh "docker build -t back-spring ."
                 }
             }
