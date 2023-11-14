@@ -3,7 +3,7 @@ version: '3.8'
 services:
 
   back:
-    image: back-spring
+    image: aziz77/back-spring
     ports:
       - 8081:8081
     environment:
@@ -15,7 +15,7 @@ services:
       - back-tier
 
   mysqldb:
-    image: mysql:5.7
+    image: aziz77/mysql
     ports:
       - 3306:3306
     environment:
@@ -27,7 +27,7 @@ services:
       - back-tier
 
   front:
-    image: front-spring
+    image: aziz77/front-spring
     ports:
       - 3000:3000
     networks:
