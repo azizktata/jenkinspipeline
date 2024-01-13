@@ -10,6 +10,8 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(maxAge = 3600)
+
 @RequestMapping(value = "api/v1/cars")
 public class CarController {
 

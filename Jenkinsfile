@@ -3,6 +3,9 @@ pipeline {
      tools {
           maven 'maven'
      }
+     environment {
+                  DOCKERHUB_CREDENTIALS = credentials('dockerhub_id')
+              }
     stages {
 
         stage('Checkout') {
@@ -15,17 +18,26 @@ pipeline {
             steps {
                  script{
                     sh "mvn clean install -DskipTests"
-                    sh "docker build -t back-spring ."
+                    sh "docker build -t aziz77/back-spring:1.0 ."
                 }
             }
         }
-        stage('Run Docker Container') {
+        stage('Push to DockerHub') {
             steps {
                 script {
-                    sh 'docker compose up -d'
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    sh 'docker push aziz77/back-spring:1.0'
                 }
             }
         }
+
+//         stage('Run Docker Container') {
+//             steps {
+//                 script {
+//                     sh 'docker compose up -d'
+//                 }
+//             }
+//         }
 
     }
     post {

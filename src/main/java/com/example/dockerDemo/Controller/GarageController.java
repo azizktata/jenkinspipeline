@@ -12,6 +12,8 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(maxAge = 3600)
+
 @RequestMapping(value = "api/v1/garage")
 public class GarageController {
 
