@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spring-boot-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-boot-app
+  template:
+    metadata:
+      labels:
+        app: spring-boot-app
+    spec:
+      containers:
+        - name: spring-boot-app
+          image: aziz77/garage-back:1.0
+          ports:
+            - containerPort: 8081
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:mysql://mysql-service:3306/Fulldb?createDatabaseIfNotExist=true
+            - name: SPRING_MVC_CORS_MAPPING
+              value: /**
+            - name: SPRING_MVC_CORS_ALLOWED_ORIGINS
+              value: http://react-app-service:80
+            - name: SPRING_MVC_CORS_ALLOWED_METHODS
+              value: GET, POST, PUT, DELETE
+            - name: SPRING_MVC_CORS_ALLOWED_HEADERS
+              value: "*"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-boot-app-service
+spec:
+  selector:
+    app: spring-boot-app
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
