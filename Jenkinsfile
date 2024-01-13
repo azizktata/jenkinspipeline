@@ -18,7 +18,7 @@ pipeline {
             steps {
                  script{
                     sh "mvn clean install -DskipTests"
-                    sh "docker build -t aziz77/back-spring:1.0 ."
+                    sh "docker build -t aziz77/garage-back:1.0 ."
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                    sh 'docker push aziz77/back-spring:1.0'
+                    sh 'docker push aziz77/garage-back:1.0'
                 }
             }
         }
