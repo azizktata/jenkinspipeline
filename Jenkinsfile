@@ -31,6 +31,18 @@ pipeline {
             }
         }
 
+stage ("Deploy to k8s"){
+            steps {
+                withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'k8s-cluster', contextName: '', credentialsId: 'SECRET_KEY', namespace: 'default', serverUrl: 'https://192.168.1.20:6443']]) {
+                sh 'curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.20.5/bin/linux/amd64/kubectl"'
+                sh 'chmod u+x ./kubectl'
+                sh './kubectl get nodes'
+                sh './kubectl apply -f ./manifests/mysql-deployment.yml'
+                sh './kubectl apply -f ./manifests/spring-deployment.yml'
+            }
+            }
+
+        }
 //         stage('Run Docker Container') {
 //             steps {
 //                 script {
