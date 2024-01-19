@@ -22,6 +22,14 @@ spec:
               value: Fulldb
             - name: MYSQL_ROOT_PASSWORD
               value: system
+          volumeMounts:
+            - name: sql-volume
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: sql-volume
+          hostPath:
+              path: /home/aziz/data/sql
+              type: Directory
 
 ---
 apiVersion: v1
