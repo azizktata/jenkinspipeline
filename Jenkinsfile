@@ -43,19 +43,13 @@ stage ("Deploy to k8s"){
             }
 
         }
-//         stage('Run Docker Container') {
-//             steps {
-//                 script {
-//                     sh 'docker compose up -d'
-//                 }
-//             }
-//         }
+
 
     }
     post {
         always {
-                    // Cleanup or post-build actions
-            deleteDir() // This will delete the workspace directory
+                    // Cleanup
+            deleteDir()
         }
     }
 }
